@@ -16,15 +16,15 @@ The "a-o-a" folder including all of the helm charts below:<br  />
 
 Application <br  />
 
-Python app and MongoDB<br  />
+>Python app and MongoDB<br  />
 
 Cert Manager<br  />
 
-Certification Manager for HTTPs.<br  />
+>Certification Manager for HTTPs.<br  />
 
 Cluster Issuer<br  />
 
-Using "letsencrypt" to issue a certificate.<br  />
+>Using "letsencrypt" to issue a certificate.<br  />
 
 EFK Stack:<br  />
 
@@ -84,19 +84,18 @@ On this folder you can find a Jenkinsfile with the 8 Stages + Post Stage as ment
 
 1. Clone Stage<br  />
 
-Cloning the source files from two repositories - the application repository and argo's SCM (for the Deploy stage)
+>Cloning the source files from two repositories - the application repository and argo's SCM (for the Deploy stage)
 
 2. Tag Calculation Stage<br  />
 
-In case of a push from main branch, Iv'e implemented an semver versioning stage which tagging images which built & tested successfully.
+>In case of a push from main branch, Iv'e implemented an semver versioning stage which tagging images which built & tested successfully.
 
 3. Build Stage<br  />
 
-Building the dockerfile.
+>Building the dockerfile.
 
 4. Unit Test Stage<br  />
-
-Using "docker compose up" to run the testing env. and testing getting the docker logs to make sure it's running.
+>Using "docker compose up" to run the testing env. and testing getting the docker logs to make sure it's running.
 
 5. E2E Test Stage<br  />
 
