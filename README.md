@@ -44,7 +44,7 @@ Prometheus Stack:<br  />
 
 "appTests.sh" which testing the python app with different HTTP methods. <br  />
 
-"argoInit.sh" which deploying argo's SCM and updating no-ip DNS to the updated IP of the provisioned EKS cluster.
+"argoInit.sh" which setting argo's SCM and updating no-ip DNS to the updated IP of the provisioned EKS cluster.
 
   
 
@@ -52,13 +52,15 @@ Prometheus Stack:<br  />
 
 "dockerfile" which dockerize the python app, using python:3.8.2-slim-buster as a base image.<br  />
 
-"docker-compose" which used as part of CI pipeline to run an testing environment (DB & App) for testing purposes.
+"docker-compose" which used as a part of the CI pipeline to run an testing environment (DB & App) for testing purposes.
 
   
 
 # On "IaaC-TF":
 
-On this folder you can find all of the infrastructe will be provisioned on AWS which including the resources below:<br  />
+On this folder you can find all of the infrastructure which will be provisioned on AWS using terraform.<br  />
+
+The resources will be provisioned are:<br  />
 
 * EKS Cluster:<br  />
 
@@ -80,26 +82,28 @@ On this folder you can find all of the infrastructe will be provisioned on AWS w
 
 # On "Jenkins":
 
-On this folder you can find a Jenkinsfile with the 8 Stages + Post Stage as mentioned below:<br  />
+On this folder you can find a Jenkinsfile with 8 Stages + Post Stage as mentioned below:<br  />
 
 1. Clone Stage<br  />
 
->Cloning the source files from two repositories - the application repository and argo's SCM (for the Deploy stage)
+>Cloning the source files from two repositories - the application repository and ArgoCD's SCM (for the Deploy stage).
 
 2. Tag Calculation Stage<br  />
 
->In case of a push from main branch, Iv'e implemented an semver versioning stage which tagging images which built & tested successfully.
+>In case of a push from the main branch, I've implemented an semantic versioning stage which tagging images that built & tested successfully <br  />
+>This stage is calculating the next tag.
 
 3. Build Stage<br  />
 
 >Building the dockerfile.
 
 4. Unit Test Stage<br  />
->Using "docker compose up" to run the testing env. and testing getting the docker logs to make sure it's running.
+
+>Using "docker compose up" to run the testing env. and getting the docker logs to make sure the application is running.
 
 5. E2E Test Stage<br  />
 
-* Running E2E tests which includes four HTTP methods:<br  />
+* Running E2E tests which includes testing for four HTTP methods:<br  />
 
 > >GET<br  />
 
@@ -109,11 +113,11 @@ On this folder you can find a Jenkinsfile with the 8 Stages + Post Stage as ment
 
 > >DELETE<br  />
 
->if the status code '200' is will return as a result, the tests will pass successfully.
+>if the status code '200' will return as a result, the tests will pass successfully.
 
 6. Tagging Stage<br  />
 
-> Tagging the image with the tag which calculated on stage 2 with docker & git.
+> Tagging with docker & git the image with the tag which calculated on stage 2.
 
 7. Publish Stage<br  />
 
@@ -121,7 +125,7 @@ On this folder you can find a Jenkinsfile with the 8 Stages + Post Stage as ment
 
 8. Deploy Stage<br  />
 
->Changing the values of argo's SCM to the updated image version, so ArgoCD will pull the change and update the deployment.
+>Changing the values of ArgoCD's SCM to the updated image version, so ArgoCD will pull the change and update the deployment.
 
 9. Post Stage<br  />
 
@@ -131,6 +135,6 @@ On this folder you can find a Jenkinsfile with the 8 Stages + Post Stage as ment
 
 # On "pythonApp":
 
-On this folder you can find a python app which providing an admin panel for teachers, it's html templates and requirements.<br  />
+On this folder you will find a python app which providing an admin panel for teachers, it's html templates and requirements.txt.<br  />
 
 The app using four HTTP methods (GET, POST, PUT and DELETE) to get, change or delete data from it's database.<br  />
