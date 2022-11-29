@@ -1,0 +1,31 @@
+mongodb:
+  architecture: replicaset
+  auth:
+    rootPassword: "example"
+  replicaCount: 3
+  fullnameOverride: mongodb
+
+app:
+  name: app
+  replicaCount: 1
+  imageURL: 644435390668.dkr.ecr.eu-west-1.amazonaws.com/baryvee-app:1.0.2
+service:
+  port: 80
+  targetPort: 80
+
+ingress:
+  create: true
+  name: app-ingress  
+  spec:
+    annotations:
+      cert-manager.io/cluster-issuer: cluster-issuer 
+    host: "baryvee2.ddns.net"
+
+resources:
+  limits:   
+    memory: "128Mi"
+    cpu: "100m"
+  requests:
+    memory: "64Mi"
+    cpu: "50m"
+
